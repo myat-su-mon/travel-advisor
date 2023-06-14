@@ -9,7 +9,7 @@ import {
 import React, { useLayoutEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import * as Animatable from "react-native-animatable";
-import { HeroImage } from "../assets";
+import { HeroImage } from "../assets/index";
 import { colors } from "../shared/colors";
 
 const HomeScreen = () => {
@@ -35,9 +35,7 @@ const HomeScreen = () => {
         <Text style={styles.subTitle2}>Good Moments</Text>
 
         <Text style={styles.subTitle3}>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore
-          doloribus ipsam voluptate et totam vitae recusandae assumenda,
-          asperiores iste, cumque facere tempora minus accusantium quos.
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae quis esse voluptatem? Ratione, natus velit.
         </Text>
       </View>
 
@@ -55,7 +53,10 @@ const HomeScreen = () => {
         />
       </View>
 
-      <TouchableOpacity onPress={() => navigation.navigate('Discover')} style={styles.btnContainer}>
+      <TouchableOpacity
+        onPress={() => navigation.navigate("Discover")}
+        style={styles.btnContainer}
+      >
         <Animatable.View
           animation="pulse"
           easing="ease-in-out"
@@ -94,48 +95,48 @@ const styles = StyleSheet.create({
   },
   logoText: {
     color: "#00bcc9",
-    fontSize: "1.5rem",
+    fontSize: 23,
     fontWeight: "600",
   },
   headerText: {
     color: "#2a2b4b",
-    fontSize: "2rem",
+    fontSize: 32,
     fontWeight: "600",
   },
   momentContainer: {
     paddingHorizontal: 24,
-    marginTop: 32,
-    gap: 3,
+    marginTop: 8,
+    gap: 1,
   },
   subTitle1: {
     color: colors.primary,
-    fontSize: "42px",
+    fontSize: 28,
   },
   subTitle2: {
     color: colors.secondary,
-    fontSize: "38px",
+    fontSize: 20,
     fontWeight: "bold",
   },
   subTitle3: {
     color: colors.primary,
   },
   circle: {
-    width: 400,
-    height: 400,
+    width: 200,
+    height: 200,
     backgroundColor: colors.secondary,
-    borderRadius: "50%",
+    borderRadius: 100,
     position: "absolute",
-    bottom: 36,
-    right: -36,
+    bottom: -40,
+    right: -40,
   },
   circle2: {
-    width: 400,
-    height: 400,
-    backgroundColor: "#e99265",
-    borderRadius: "50%",
+    width: 200,
+    height: 200,
+    backgroundColor: colors.orange,
+    borderRadius: 100,
     position: "absolute",
-    bottom: -28,
-    left: -36,
+    bottom: 40,
+    left: -40,
   },
   imgContainer: {
     flex: 1,
@@ -144,10 +145,10 @@ const styles = StyleSheet.create({
     position: "relative",
   },
   image: {
-    width: "100%",
-    height: "100%",
-    objectFit: "cover",
-    marginTop: 80,
+    width: 500,
+    height: 500,
+    objectFit: "contain",
+    marginTop: 80
   },
   btnContainer: {
     position: "absolute",
@@ -158,7 +159,7 @@ const styles = StyleSheet.create({
     borderRightWidth: 2,
     borderTopWidth: 4,
     borderColor: colors.secondary,
-    borderRadius: "50%",
+    borderRadius: 50,
     justifyContent: "center",
     alignItems: "center",
     alignSelf: "center",
@@ -168,12 +169,12 @@ const styles = StyleSheet.create({
     height: 80,
     justifyContent: "center",
     alignItems: "center",
-    borderRadius: "50%",
+    borderRadius: 50,
     backgroundColor: colors.secondary,
   },
   btnText: {
     color: colors.gray50,
-    fontSize: "36px",
+    fontSize: 36,
     fontWeight: "600",
   },
 });
