@@ -3,9 +3,9 @@ import React from "react";
 import { colors } from "../shared/colors";
 
 const MenuContainer = ({ title, imageSrc, type, setType }) => {
-    const handlePress = () => {
-setType(title.toLowerCase())
-    };
+  const handlePress = () => {
+    setType(title.toLowerCase());
+  };
 
   let background = "";
   if (type === title.toLowerCase) {
@@ -15,7 +15,7 @@ setType(title.toLowerCase())
   return (
     <TouchableOpacity style={styles.menuContainer} onPress={handlePress}>
       <View style={[styles.menuItem, { background }]}>
-        <Image source={imageSrc} style={styles.image}/>
+        <Image source={imageSrc} style={styles.image} />
       </View>
       <Text style={styles.text}>{title}</Text>
     </TouchableOpacity>
@@ -38,13 +38,13 @@ const styles = StyleSheet.create({
     padding: 16,
   },
   image: {
-    width: '100%',
-    height: '100%',
-    objectFit: 'contain'
+    width: "100%",
+    height: "100%",
+    objectFit: "contain",
   },
   text: {
     color: colors.secondary,
     fontSize: 32,
-    fontWeight: '600'
-  }
+    fontWeight: "600",
+  },
 });
