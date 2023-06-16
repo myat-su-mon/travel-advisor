@@ -1,24 +1,15 @@
 import {
-  Image,
   SafeAreaView,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
 } from "react-native";
-import React, { useLayoutEffect } from "react";
-import { useNavigation } from "@react-navigation/native";
 import * as Animatable from "react-native-animatable";
 import { HeroImage } from "../assets/index";
 import { colors } from "../shared/colors";
 
-const HomeScreen = () => {
-  const navigation = useNavigation();
-
-  useLayoutEffect(() => {
-    navigation.setOptions({ headerShown: false });
-  }, []);
-
+const HomeScreen = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
       {/* first section  */}
@@ -35,7 +26,8 @@ const HomeScreen = () => {
         <Text style={styles.subTitle2}>Good Moments</Text>
 
         <Text style={styles.subTitle3}>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae quis esse voluptatem? Ratione, natus velit.
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae
+          quis esse voluptatem? Ratione, natus velit.
         </Text>
       </View>
 
@@ -86,22 +78,23 @@ const styles = StyleSheet.create({
     marginTop: 32,
   },
   logo: {
-    width: 60,
-    height: 60,
+    width: 48,
+    height: 48,
     backgroundColor: "black",
-    borderRadius: 50,
+    borderRadius: 24,
     alignItems: "center",
     justifyContent: "center",
   },
   logoText: {
     color: "#00bcc9",
-    fontSize: 23,
+    fontSize: 16,
     fontWeight: "600",
   },
   headerText: {
     color: "#2a2b4b",
-    fontSize: 32,
+    fontSize: 24,
     fontWeight: "600",
+    marginLeft: 4
   },
   momentContainer: {
     paddingHorizontal: 24,
@@ -110,11 +103,11 @@ const styles = StyleSheet.create({
   },
   subTitle1: {
     color: colors.primary,
-    fontSize: 28,
+    fontSize: 22,
   },
   subTitle2: {
     color: colors.secondary,
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: "bold",
   },
   subTitle3: {
@@ -148,7 +141,7 @@ const styles = StyleSheet.create({
     width: 500,
     height: 500,
     objectFit: "contain",
-    marginTop: 80
+    marginTop: 80,
   },
   btnContainer: {
     position: "absolute",

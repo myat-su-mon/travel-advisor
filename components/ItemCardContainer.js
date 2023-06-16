@@ -9,7 +9,7 @@ const ItemCardContainer = ({ imageSrc, title, location, data }) => {
 
   return (
     <TouchableOpacity
-      onPress={() => navigation.navigate("ItemScreen", {param: data})}
+      onPress={() => navigation.navigate("ItemScreen", { param: data })}
       style={styles.itemCardContainer}
     >
       <Image source={{ uri: imageSrc }} style={styles.image} />
@@ -20,9 +20,9 @@ const ItemCardContainer = ({ imageSrc, title, location, data }) => {
             {title?.length > 14 ? `${title.slice(0, 14)}...` : title}
           </Text>
           <Text style={styles.cardSubTitle}>
-            {location?.length > 18 ? `${location.slice(0, 18)}...` : location}
+            <FontAwesome name="map-marker" size={20} color="#8597A2" />
+            {location?.length > 12 ? `${location.slice(0, 12)}...` : location}
           </Text>
-          <FontAwesome name="map-marker" size={20} color="#8597A2" />
         </>
       ) : (
         <></>
@@ -35,7 +35,7 @@ export default ItemCardContainer;
 
 const styles = StyleSheet.create({
   itemCardContainer: {
-    width: 182,
+    width: 160,
     borderRadius: 20,
     borderWidth: 1,
     borderColor: colors.gray400,
@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
   },
   image: {
     width: "100%",
-    height: 160,
+    height: 100,
     borderRadius: 10,
     objectFit: "cover",
   },
@@ -59,12 +59,12 @@ const styles = StyleSheet.create({
   },
   cardTitle: {
     color: "#428288",
-    fontSize: 18,
+    fontSize: 10,
     fontWeight: "bold",
   },
   cardSubTitle: {
     color: "#428288",
-    fontSize: 14,
+    fontSize: 8,
     fontWeight: "bold",
   },
 });

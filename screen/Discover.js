@@ -8,8 +8,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React, { useEffect, useLayoutEffect, useState } from "react";
-import { useNavigation } from "@react-navigation/native";
+import { useEffect, useState } from "react";
 import { colors } from "../shared/colors";
 import { Attractions, Avatar, Hotels, NotFound, Restaurants } from "../assets";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
@@ -18,26 +17,23 @@ import { FontAwesome } from "@expo/vector-icons";
 import ItemCardContainer from "../components/ItemCardContainer";
 import { getPlacesData } from "../api";
 
-const Discover = () => {
-  const navigation = useNavigation();
-
+const Discover = ({ navigation }) => {
   const [type, setType] = useState("restaurants");
   const [isLoading, setIsLoading] = useState(false);
   const [mainData, setMainData] = useState([]);
-console.log(mainData);
-  useLayoutEffect(() => {
-    navigation.setOptions({ headerShown: false });
-  }, []);
 
   useEffect(() => {
     setIsLoading(true);
-    getPlacesData().then((data) => {
-      setMainData(data);
+    getPlacesData(type).then((data) => {
+      const response = data?.filter(
+        (item) => item.photo && item.description.length > 0
+      );
+      setMainData(response);
       setInterval(() => {
         setIsLoading(false);
       }, 2000);
     });
-  }, []);
+  }, [type]);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -51,25 +47,31 @@ console.log(mainData);
         </View>
       </View>
 
-      <View style={styles.searchContainer}>
+      {/* <View style={styles.searchContainer}>
         <GooglePlacesAutocomplete
           GooglePlacesDetailsQuery={{ fields: "geometry" }}
           placeholder="Search"
           fetchDetails={true}
           onPress={(data, details = null) => {
-            // console.log(data);
-            // console.log(details?.geometry?.viewport);
+            console.log(details?.geometry?.viewport);
+            setBl_lat(details?.geometry?.viewport?.southwest?.lat);
+            setBl_lng(details?.geometry?.viewport?.nor?.lng);
+            setTr_lat(details?.geometry?.viewport?.northeast?.lat);
+            setTr_lng(details?.geometry?.viewport?.northeast?.lng);
           }}
           query={{
             key: "AIzaSyD9uxeMUupwmBDHqXV8Wfg2VSTVmdzYMfA",
             language: "en",
           }}
           requestUrl={{
-            useOnPlatform: "web", // or "all"
+            useOnPlatform: "all",
             url: "https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api",
+            headers: {
+              "x-requested-with": "XMLHttpRequest",
+            },
           }}
         />
-      </View>
+      </View> */}
 
       {/* menu container  */}
       {isLoading ? (
@@ -109,7 +111,7 @@ console.log(mainData);
                 <Text style={styles.exploreText}>Explore</Text>
                 <FontAwesome
                   name="long-arrow-right"
-                  size={24}
+                  size={16}
                   color="#A0C4C7"
                 />
               </TouchableOpacity>
@@ -124,8 +126,11 @@ console.log(mainData);
                       imageSrc={
                         data?.photo?.images?.medium?.url
                           ? data?.photo?.images?.medium?.url
-                          : require("../assets/chef.png")
-                      } title={data?.name} location={data?.location_string} data={data}
+                          : "https://cdn.pixabay.com/photo/2017/01/26/02/06/platter-2009590_1280.jpg"
+                      }
+                      title={data?.name}
+                      location={data?.location_string}
+                      data={data}
                     />
                   ))}
                 </>
@@ -159,17 +164,17 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    paddingHorizontal: 32,
+    paddingHorizontal: 16,
     marginTop: 20,
   },
   headerTitle1: {
-    fontSize: 28,
+    fontSize: 20,
     color: colors.green,
     fontWeight: "bold",
   },
   headerTitle2: {
     color: colors.darkGray,
-    fontSize: 20,
+    fontSize: 16,
   },
   avatarContainer: {
     width: 50,
@@ -188,25 +193,26 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     backgroundColor: colors.white,
-    marginHorizontal: 4,
+    marginHorizontal: 16,
     paddingHorizontal: 4,
     paddingVertical: 1,
     borderRadius: 10,
     elevation: 10,
-    marginTop: 40,
+    marginTop: 8,
   },
   menuContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
     paddingHorizontal: 8,
+    marginHorizontal: 8,
     marginTop: 8,
   },
   tipsContainer: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    paddingHorizontal: 4,
+    paddingHorizontal: 16,
     marginTop: 8,
   },
   btnExplore: {
@@ -217,12 +223,12 @@ const styles = StyleSheet.create({
   },
   tipText: {
     color: "#2c7379",
-    fontSize: 28,
+    fontSize: 20,
     fontWeight: "bold",
   },
   exploreText: {
     color: "#A0C4C7",
-    fontSize: 20,
+    fontSize: 16,
     fontWeight: "bold",
   },
   itemContainer: {
@@ -247,7 +253,7 @@ const styles = StyleSheet.create({
   notFoundImg: {
     width: 120,
     height: 120,
-    object: "cover",
+    objectFit: "cover",
   },
   notFoundText: {
     color: "#428288",
